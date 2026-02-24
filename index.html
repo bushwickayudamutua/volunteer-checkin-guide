@@ -519,91 +519,72 @@
             </div>
         </div>
 
-        <!-- STEP 2: SEARCH BY NAME -->
+        <!-- STEP 2: SEARCH BY LAST 4 DIGITS -->
         <div class="section collapsible">
             <div class="section-header">
                 <span class="step-number">2</span>
-                <h2 data-i18n="step2_title">Search by Name</h2>
+                <h2 data-i18n="step2_title">Search by Last 4 Digits of Phone Number</h2>
             </div>
             <div class="section-content">
                 <div class="instruction">
-                    <p data-i18n="step2_desc">When a recipient arrives, search for them by name using the search box in the upper right corner.</p>
+                    <p data-i18n="step2_desc">When a recipient arrives, use <strong>Ctrl+F</strong> (or Cmd+F on Mac) and type the <strong>last 4 digits</strong> of their phone number to find them.</p>
                 </div>
 
                 <div class="image-container">
-                    <img src="images/search by name.png" alt="Search by name in upper right">
-                    <div class="image-caption" data-i18n="step2_caption">🔍 Type the recipient's name in the search box (upper right) to find them quickly</div>
+                    <img src="images/search by phone number.png" alt="Browser find dialog searching by last 4 digits">
+                    <div class="image-caption" data-i18n="step2_caption">📱 Use Ctrl+F (Cmd+F on Mac) and type the last 4 digits of the recipient's phone number</div>
                 </div>
 
                 <div class="tip">
-                    <strong data-i18n="tip_label">💡 Tip:</strong> <span data-i18n="step2_tip">You can search by partial name - typing "mar" will find "María", "Maria Caz", etc.</span>
+                    <strong data-i18n="tip_label">💡 Tip:</strong> <span data-i18n="step2_tip">Ask the recipient for the last 4 digits of their phone number on file. This is the fastest way to find them.</span>
                 </div>
             </div>
         </div>
 
-        <!-- STEP 3: SEARCH BY PHONE -->
+        <!-- STEP 3: VIEW OPEN REQUESTS -->
         <div class="section collapsible">
             <div class="section-header">
                 <span class="step-number">3</span>
-                <h2 data-i18n="step3_title">Alternative: Search by Phone Number</h2>
+                <h2 data-i18n="step3_title">View Recipient's Open Requests</h2>
             </div>
             <div class="section-content">
                 <div class="instruction">
-                    <p data-i18n="step3_desc">If you can't find the recipient by name, use <strong>Ctrl+F</strong> (or Cmd+F on Mac) to search by phone number.</p>
-                </div>
-
-                <div class="image-container">
-                    <img src="images/search by phone number.png" alt="Browser find dialog searching by phone">
-                    <div class="image-caption" data-i18n="step3_caption">📱 Use Ctrl+F (Cmd+F on Mac) to search by phone number</div>
-                </div>
-
-                <div class="tip">
-                    <strong data-i18n="tip_label">💡 Tip:</strong> <span data-i18n="step3_tip">You can search for partial phone numbers like "(347) 339" to find a match. Make sure to include the parentheses!</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- STEP 4: VIEW OPEN REQUESTS -->
-        <div class="section collapsible">
-            <div class="section-header">
-                <span class="step-number">4</span>
-                <h2 data-i18n="step4_title">View Recipient's Open Requests</h2>
-            </div>
-            <div class="section-content">
-                <div class="instruction">
-                    <p data-i18n="step4_desc">Click on the recipient's name to expand and see their <strong>requests</strong>. Focus on items with <strong>"Open"</strong> status - these are the items for the current distribution.</p>
+                    <p data-i18n="step3_desc">Click on the recipient's name to expand and see their <strong>requests</strong>. Focus on items with <strong>"Open"</strong> status - these are the items for the current distribution.</p>
                 </div>
 
                 <div class="image-container">
                     <img src="images/open requests.png" alt="Expanded view showing open requests">
-                    <div class="image-caption" data-i18n="step4_caption">📦 Expanded view showing recipient's requests - focus on "Open" status items</div>
+                    <div class="image-caption" data-i18n="step3_caption">📦 Expanded view showing recipient's requests - focus on "Open" status items</div>
                 </div>
 
                 <div class="warning">
-                    <strong data-i18n="important_label">⚠️ Important:</strong> <span data-i18n="step4_warning">Only process items with <strong>"Open"</strong> status. Items marked "Delivered" have already been given out.</span>
+                    <strong data-i18n="important_label">⚠️ Important:</strong> <span data-i18n="step3_warning">Only process items with <strong>"Open"</strong> status. Items marked "Delivered" have already been given out.</span>
                 </div>
             </div>
         </div>
 
-        <!-- STEP 5: PROCESS EACH REQUEST -->
+        <!-- STEP 4: PROCESS EACH REQUEST -->
         <div class="section collapsible">
             <div class="section-header">
-                <span class="step-number">5</span>
-                <h2 data-i18n="step5_title">Process Each Request</h2>
+                <span class="step-number">4</span>
+                <h2 data-i18n="step4_title">Process Each Request</h2>
             </div>
             <div class="section-content">
                 <div class="instruction">
-                    <p data-i18n="step5_desc">For each <strong>Open</strong> request, ask the recipient if they still need the item:</p>
+                    <p data-i18n="step4_desc">For each <strong>Open</strong> request, ask the recipient if they still need the item:</p>
                 </div>
 
                 <div class="mermaid-container" id="mermaid-en">
                     <pre class="mermaid">
 flowchart TD
     A["🗣️ Ask: Do you need this item?"] --> B{Response}
-    B -->|"✅ YES"| C["Mark as Delivered"]
     B -->|"❌ NO"| D["Mark as Timeout"]
+    B -->|"✅ YES"| H{"Do we have it?\nDid we deliver it?"}
+    H -->|"YES"| C["Mark as Delivered"]
+    H -->|"NO"| I["Leave as Open"]
     C --> E["Next Open Request"]
     D --> E
+    I --> E
     E --> F{More Open Requests?}
     F -->|Yes| A
     F -->|No| G["✅ Mark as Checked In"]
@@ -612,6 +593,8 @@ flowchart TD
     style B fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
     style C fill:#e8f5e9,stroke:#2d5a27,stroke-width:2px
     style D fill:#fff3e0,stroke:#e07830,stroke-width:2px
+    style H fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
+    style I fill:#e8eaf6,stroke:#5c6bc0,stroke-width:2px
     style E fill:#f5f5f5,stroke:#9e9e9e,stroke-width:2px
     style F fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
     style G fill:#e8f5e9,stroke:#2d5a27,stroke-width:3px
@@ -622,10 +605,13 @@ flowchart TD
                     <pre class="mermaid">
 flowchart TD
     A["🗣️ Preguntar: ¿Necesita este artículo?"] --> B{Respuesta}
-    B -->|"✅ SÍ"| C["Marcar como Entregado"]
     B -->|"❌ NO"| D["Marcar como Vencido"]
+    B -->|"✅ SÍ"| H{"¿Lo tenemos?\n¿Se lo entregamos?"}
+    H -->|"SÍ"| C["Marcar como Entregado"]
+    H -->|"NO"| I["Dejar como Abierto"]
     C --> E["Siguiente Solicitud Abierta"]
     D --> E
+    I --> E
     E --> F{¿Más Solicitudes Abiertas?}
     F -->|Sí| A
     F -->|No| G["✅ Marcar como Registrado"]
@@ -634,32 +620,39 @@ flowchart TD
     style B fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
     style C fill:#e8f5e9,stroke:#2d5a27,stroke-width:2px
     style D fill:#fff3e0,stroke:#e07830,stroke-width:2px
+    style H fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
+    style I fill:#e8eaf6,stroke:#5c6bc0,stroke-width:2px
     style E fill:#f5f5f5,stroke:#9e9e9e,stroke-width:2px
     style F fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
     style G fill:#e8f5e9,stroke:#2d5a27,stroke-width:3px
                     </pre>
                 </div>
 
-                <h4 style="margin: 20px 0 10px;" data-i18n="step5_if_need">If they need the item → Mark as Delivered:</h4>
+                <h4 style="margin: 20px 0 10px;" data-i18n="step4_if_need_and_have">If they need the item AND we delivered it → Mark as Delivered:</h4>
                 <div class="image-container">
                     <img src="images/mark as delivered.png" alt="Dropdown showing Delivered option">
-                    <div class="image-caption" data-i18n="step5_delivered_caption">✅ Click the status dropdown and select "Delivered" when recipient receives the item</div>
+                    <div class="image-caption" data-i18n="step4_delivered_caption">✅ Click the status dropdown and select "Delivered" when the item has been handed to the recipient</div>
                 </div>
 
-                <h4 style="margin: 20px 0 10px;" data-i18n="step5_if_no_need">If they don't need the item → Mark as Timeout:</h4>
+                <h4 style="margin: 20px 0 10px;" data-i18n="step4_if_no_need">If they don't need the item → Mark as Timeout:</h4>
                 <div class="image-container">
                     <img src="images/mark as time out .png" alt="Dropdown showing Timeout option">
-                    <div class="image-caption" data-i18n="step5_timeout_caption">⏱️ Click the status dropdown and select "Timeout" when recipient no longer needs the item</div>
+                    <div class="image-caption" data-i18n="step4_timeout_caption">⏱️ Click the status dropdown and select "Timeout" when recipient no longer needs the item</div>
+                </div>
+
+                <h4 style="margin: 20px 0 10px;" data-i18n="step4_if_need_no_stock">If they need the item but we don't have it → Leave as Open:</h4>
+                <div class="warning">
+                    <strong data-i18n="important_label">⚠️ Important:</strong> <span data-i18n="step4_leave_open_desc">If the recipient still wants the item but it's not in stock or not approved for purchase yet, <strong>leave the request as "Open"</strong>. The recipient keeps their place in the queue and will be called when the item becomes available. Do NOT mark it as Delivered or Timeout.</span>
                 </div>
 
                 <div class="tip">
-                    <strong data-i18n="tip_label">💡 Tip:</strong> <span data-i18n="step5_tip">Process ALL open requests for the current distribution before moving to the next recipient.</span>
+                    <strong data-i18n="tip_label">💡 Tip:</strong> <span data-i18n="step4_tip">Process ALL open requests for the current distribution before moving to the next recipient. Some requests may stay open across multiple distributions — that's normal.</span>
                 </div>
 
-                <h4 style="margin: 20px 0 10px;" data-i18n="step5_after_all">After all requests are processed → Mark as Checked In:</h4>
+                <h4 style="margin: 20px 0 10px;" data-i18n="step4_after_all">After all requests are processed → Mark as Checked In:</h4>
                 <div class="image-container">
                     <img src="images/mark as checked in .png" alt="Mark as checked in">
-                    <div class="image-caption" data-i18n="step5_checkedin_caption">✅ Once all requests are processed, mark the recipient as "Checked In"</div>
+                    <div class="image-caption" data-i18n="step4_checkedin_caption">✅ Once all requests are processed, mark the recipient as "Checked In"</div>
                 </div>
             </div>
         </div>
@@ -689,7 +682,7 @@ flowchart TD
                     </div>
 
                     <div class="sub-step">
-                        <strong data-i18n="step_b_label">Step B:</strong> <span data-i18n="step_b">Find the person using the same search methods from <strong>Steps 2 & 3</strong> (search by name or Ctrl+F for phone number), then click on their <strong>Appointment Date</strong> field</span>
+                        <strong data-i18n="step_b_label">Step B:</strong> <span data-i18n="step_b">Find the person using Ctrl+F (Cmd+F on Mac) to search by the last 4 digits of their phone number, then click on their <strong>Appointment Date</strong> field</span>
                         <div class="image-container" style="margin-top: 10px;">
                             <img src="images/go to appointment date .png" alt="Clicking appointment date field">
                             <div class="image-caption" data-i18n="step_b_caption">Click on the Appointment Date to open the calendar picker</div>
@@ -731,7 +724,7 @@ flowchart TD
                 </div>
                 <ol style="margin-left: 20px; line-height: 2;">
                     <li data-i18n="end_step1">Review that all checked-in recipients have had their requests processed</li>
-                    <li data-i18n="end_step2">Verify all "Open" items for the day have been marked as either "Delivered" or "Timeout"</li>
+                    <li data-i18n="end_step2">Verify today's distribution items have been marked as "Delivered" or "Timeout" where applicable. Items that are still "Open" because they weren't in stock stay open — that's expected.</li>
                     <li data-i18n="end_step3">Mark no-shows as "Missed" for follow-up</li>
                 </ol>
 
@@ -768,14 +761,14 @@ flowchart TD
                     <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; text-align: center; border: 2px solid #2196f3;">
                         <div style="font-size: 2rem;">📂</div>
                         <strong style="color: #1565c0;" data-i18n="ref_open">Open</strong>
-                        <p style="font-size: 0.9rem; margin-top: 5px;" data-i18n="ref_open_desc">Still waiting - current distro items</p>
+                        <p style="font-size: 0.9rem; margin-top: 5px;" data-i18n="ref_open_desc">Recipient wants item but it's not available yet — stays in queue</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <footer>
-            <p data-i18n="footer_main">BAM Check-In Volunteer Guide • Last Updated: January 2026</p>
+            <p data-i18n="footer_main">BAM Check-In Volunteer Guide • Last Updated: February 2026</p>
             <p style="margin-top: 5px;"><a href="https://bushwickayudamutua.com" target="_blank">bushwickayudamutua.com</a></p>
             <p style="margin-top: 10px; font-size: 0.8rem;" data-i18n="footer_mobile">Tap section headers to expand/collapse on mobile</p>
         </footer>
@@ -799,28 +792,26 @@ flowchart TD
                 step1_caption: "📍 Landing Page: Today's Appointments view with recipients scheduled for distribution",
                 tip_label: "💡 Tip:",
                 step1_tip: "The \"Today's Appointments\" view automatically filters to show only recipients with appointments for today's date.",
-                step2_title: "Search by Name",
-                step2_desc: "When a recipient arrives, search for them by name using the search box in the upper right corner.",
-                step2_caption: "🔍 Type the recipient's name in the search box (upper right) to find them quickly",
-                step2_tip: "You can search by partial name - typing \"mar\" will find \"María\", \"Maria Caz\", etc.",
-                step3_title: "Alternative: Search by Phone Number",
-                step3_desc: "If you can't find the recipient by name, use <strong>Ctrl+F</strong> (or Cmd+F on Mac) to search by phone number.",
-                step3_caption: "📱 Use Ctrl+F (Cmd+F on Mac) to search by phone number",
-                step3_tip: "You can search for partial phone numbers like \"(347) 339\" to find a match. Make sure to include the parentheses!",
-                step4_title: "View Recipient's Open Requests",
-                step4_desc: "Click on the recipient's name to expand and see their <strong>requests</strong>. Focus on items with <strong>\"Open\"</strong> status - these are the items for the current distribution.",
-                step4_caption: "📦 Expanded view showing recipient's requests - focus on \"Open\" status items",
+                step2_title: "Search by Last 4 Digits of Phone Number",
+                step2_desc: "When a recipient arrives, use <strong>Ctrl+F</strong> (or Cmd+F on Mac) and type the <strong>last 4 digits</strong> of their phone number to find them.",
+                step2_caption: "📱 Use Ctrl+F (Cmd+F on Mac) and type the last 4 digits of the recipient's phone number",
+                step2_tip: "Ask the recipient for the last 4 digits of their phone number on file. This is the fastest way to find them.",
+                step3_title: "View Recipient's Open Requests",
+                step3_desc: "Click on the recipient's name to expand and see their <strong>requests</strong>. Focus on items with <strong>\"Open\"</strong> status - these are the items for the current distribution.",
+                step3_caption: "📦 Expanded view showing recipient's requests - focus on \"Open\" status items",
                 important_label: "⚠️ Important:",
-                step4_warning: "Only process items with <strong>\"Open\"</strong> status. Items marked \"Delivered\" have already been given out.",
-                step5_title: "Process Each Request",
-                step5_desc: "For each <strong>Open</strong> request, ask the recipient if they still need the item:",
-                step5_if_need: "If they need the item → Mark as Delivered:",
-                step5_delivered_caption: "✅ Click the status dropdown and select \"Delivered\" when recipient receives the item",
-                step5_if_no_need: "If they don't need the item → Mark as Timeout:",
-                step5_timeout_caption: "⏱️ Click the status dropdown and select \"Timeout\" when recipient no longer needs the item",
-                step5_tip: "Process ALL open requests for the current distribution before moving to the next recipient.",
-                step5_after_all: "After all requests are processed → Mark as Checked In:",
-                step5_checkedin_caption: "✅ Once all requests are processed, mark the recipient as \"Checked In\"",
+                step3_warning: "Only process items with <strong>\"Open\"</strong> status. Items marked \"Delivered\" have already been given out.",
+                step4_title: "Process Each Request",
+                step4_desc: "For each <strong>Open</strong> request, ask the recipient if they still need the item:",
+                step4_if_need_and_have: "If they need the item AND we delivered it → Mark as Delivered:",
+                step4_delivered_caption: "✅ Click the status dropdown and select \"Delivered\" when the item has been handed to the recipient",
+                step4_if_no_need: "If they don't need the item → Mark as Timeout:",
+                step4_timeout_caption: "⏱️ Click the status dropdown and select \"Timeout\" when recipient no longer needs the item",
+                step4_if_need_no_stock: "If they need the item but we don't have it → Leave as Open:",
+                step4_leave_open_desc: "If the recipient still wants the item but it's not in stock or not approved for purchase yet, <strong>leave the request as \"Open\"</strong>. The recipient keeps their place in the queue and will be called when the item becomes available. Do NOT mark it as Delivered or Timeout.",
+                step4_tip: "Process ALL open requests for the current distribution before moving to the next recipient. Some requests may stay open across multiple distributions — that's normal.",
+                step4_after_all: "After all requests are processed → Mark as Checked In:",
+                step4_checkedin_caption: "✅ Once all requests are processed, mark the recipient as \"Checked In\"",
                 edge_title: "Early/Late Arrivals",
                 scenario_label: "🚨 Scenario:",
                 edge_scenario: "Someone shows up but they're scheduled for a different day (early or late arrival).",
@@ -829,7 +820,7 @@ flowchart TD
                 step_a: "Go to the <strong>Appointments</strong> interface (in the left sidebar)",
                 step_a_caption: "Navigate to Appointments in the sidebar",
                 step_b_label: "Step B:",
-                step_b: "Find the person using the same search methods from <strong>Steps 2 & 3</strong> (search by name or Ctrl+F for phone number), then click on their <strong>Appointment Date</strong> field",
+                step_b: "Find the person using Ctrl+F (Cmd+F on Mac) to search by the last 4 digits of their phone number, then click on their <strong>Appointment Date</strong> field",
                 step_b_caption: "Click on the Appointment Date to open the calendar picker",
                 step_c_label: "Step C:",
                 step_c: "Select <strong>today's date</strong> from the calendar picker",
@@ -842,7 +833,7 @@ flowchart TD
                 end_title: "End of Distribution Routine",
                 end_desc: "At the end of each distribution day:",
                 end_step1: "Review that all checked-in recipients have had their requests processed",
-                end_step2: "Verify all \"Open\" items for the day have been marked as either \"Delivered\" or \"Timeout\"",
+                end_step2: "Verify today's distribution items have been marked as \"Delivered\" or \"Timeout\" where applicable. Items that are still \"Open\" because they weren't in stock stay open — that's expected.",
                 end_step3: "Mark no-shows as \"Missed\" for follow-up",
                 end_missed_label: "For recipients who didn't arrive → Mark as Missed:",
                 end_missed_caption: "❌ Mark recipients who didn't show up as \"Missed\" so they can be followed up with",
@@ -853,8 +844,8 @@ flowchart TD
                 ref_timeout: "Timeout",
                 ref_timeout_desc: "Recipient no longer needs item",
                 ref_open: "Open",
-                ref_open_desc: "Still waiting - current distro items",
-                footer_main: "BAM Check-In Volunteer Guide • Last Updated: January 2026",
+                ref_open_desc: "Recipient wants item but it's not available yet — stays in queue",
+                footer_main: "BAM Check-In Volunteer Guide • Last Updated: February 2026",
                 footer_mobile: "Tap section headers to expand/collapse on mobile"
             },
             es: {
@@ -872,28 +863,26 @@ flowchart TD
                 step1_caption: "📍 Página Principal: Vista de Citas de Hoy con beneficiarios programados para distribución",
                 tip_label: "💡 Consejo:",
                 step1_tip: "La vista \"Citas de Hoy\" filtra automáticamente para mostrar solo los beneficiarios con citas para la fecha de hoy.",
-                step2_title: "Buscar por Nombre",
-                step2_desc: "Cuando llegue un beneficiario, búsquelo por nombre usando el cuadro de búsqueda en la esquina superior derecha.",
-                step2_caption: "🔍 Escriba el nombre del beneficiario en el cuadro de búsqueda (arriba a la derecha) para encontrarlo rápidamente",
-                step2_tip: "Puede buscar por nombre parcial - escribir \"mar\" encontrará \"María\", \"Maria Caz\", etc.",
-                step3_title: "Alternativa: Buscar por Número de Teléfono",
-                step3_desc: "Si no puede encontrar al beneficiario por nombre, use <strong>Ctrl+F</strong> (o Cmd+F en Mac) para buscar por número de teléfono.",
-                step3_caption: "📱 Use Ctrl+F (Cmd+F en Mac) para buscar por número de teléfono",
-                step3_tip: "Puede buscar números de teléfono parciales como \"(347) 339\" para encontrar una coincidencia. ¡Asegúrese de incluir los paréntesis!",
-                step4_title: "Ver Solicitudes Abiertas del Beneficiario",
-                step4_desc: "Haga clic en el nombre del beneficiario para expandir y ver sus <strong>solicitudes</strong>. Enfóquese en los artículos con estado <strong>\"Abierto\"</strong> - estos son los artículos para la distribución actual.",
-                step4_caption: "📦 Vista expandida mostrando las solicitudes del beneficiario - enfóquese en artículos con estado \"Abierto\"",
+                step2_title: "Buscar por los Últimos 4 Dígitos del Teléfono",
+                step2_desc: "Cuando llegue un beneficiario, use <strong>Ctrl+F</strong> (o Cmd+F en Mac) y escriba los <strong>últimos 4 dígitos</strong> de su número de teléfono para encontrarlo.",
+                step2_caption: "📱 Use Ctrl+F (Cmd+F en Mac) y escriba los últimos 4 dígitos del número de teléfono del beneficiario",
+                step2_tip: "Pida al beneficiario los últimos 4 dígitos de su número de teléfono registrado. Esta es la forma más rápida de encontrarlo.",
+                step3_title: "Ver Solicitudes Abiertas del Beneficiario",
+                step3_desc: "Haga clic en el nombre del beneficiario para expandir y ver sus <strong>solicitudes</strong>. Enfóquese en los artículos con estado <strong>\"Abierto\"</strong> - estos son los artículos para la distribución actual.",
+                step3_caption: "📦 Vista expandida mostrando las solicitudes del beneficiario - enfóquese en artículos con estado \"Abierto\"",
                 important_label: "⚠️ Importante:",
-                step4_warning: "Solo procese artículos con estado <strong>\"Abierto\"</strong>. Los artículos marcados como \"Entregado\" ya han sido entregados.",
-                step5_title: "Procesar Cada Solicitud",
-                step5_desc: "Para cada solicitud <strong>Abierta</strong>, pregunte al beneficiario si todavía necesita el artículo:",
-                step5_if_need: "Si necesita el artículo → Marcar como Entregado:",
-                step5_delivered_caption: "✅ Haga clic en el menú desplegable de estado y seleccione \"Entregado\" cuando el beneficiario reciba el artículo",
-                step5_if_no_need: "Si no necesita el artículo → Marcar como Vencido:",
-                step5_timeout_caption: "⏱️ Haga clic en el menú desplegable de estado y seleccione \"Vencido\" cuando el beneficiario ya no necesite el artículo",
-                step5_tip: "Procese TODAS las solicitudes abiertas para la distribución actual antes de pasar al siguiente beneficiario.",
-                step5_after_all: "Después de procesar todas las solicitudes → Marcar como Registrado:",
-                step5_checkedin_caption: "✅ Una vez procesadas todas las solicitudes, marque al beneficiario como \"Registrado\"",
+                step3_warning: "Solo procese artículos con estado <strong>\"Abierto\"</strong>. Los artículos marcados como \"Entregado\" ya han sido entregados.",
+                step4_title: "Procesar Cada Solicitud",
+                step4_desc: "Para cada solicitud <strong>Abierta</strong>, pregunte al beneficiario si todavía necesita el artículo:",
+                step4_if_need_and_have: "Si necesita el artículo Y se lo entregamos → Marcar como Entregado:",
+                step4_delivered_caption: "✅ Haga clic en el menú desplegable de estado y seleccione \"Entregado\" cuando el artículo haya sido entregado al beneficiario",
+                step4_if_no_need: "Si no necesita el artículo → Marcar como Vencido:",
+                step4_timeout_caption: "⏱️ Haga clic en el menú desplegable de estado y seleccione \"Vencido\" cuando el beneficiario ya no necesite el artículo",
+                step4_if_need_no_stock: "Si necesita el artículo pero no lo tenemos → Dejar como Abierto:",
+                step4_leave_open_desc: "Si el beneficiario todavía quiere el artículo pero no está en inventario o no está aprobado para compra aún, <strong>deje la solicitud como \"Abierto\"</strong>. El beneficiario mantiene su lugar en la fila y será llamado cuando el artículo esté disponible. NO lo marque como Entregado o Vencido.",
+                step4_tip: "Procese TODAS las solicitudes abiertas para la distribución actual antes de pasar al siguiente beneficiario. Algunas solicitudes pueden permanecer abiertas entre múltiples distribuciones — eso es normal.",
+                step4_after_all: "Después de procesar todas las solicitudes → Marcar como Registrado:",
+                step4_checkedin_caption: "✅ Una vez procesadas todas las solicitudes, marque al beneficiario como \"Registrado\"",
                 edge_title: "Llegadas Tempranas/Tardías",
                 scenario_label: "🚨 Escenario:",
                 edge_scenario: "Alguien llega pero está programado para un día diferente (llegada temprana o tardía).",
@@ -902,7 +891,7 @@ flowchart TD
                 step_a: "Vaya a la interfaz de <strong>Citas</strong> (en la barra lateral izquierda)",
                 step_a_caption: "Navegue a Citas en la barra lateral",
                 step_b_label: "Paso B:",
-                step_b: "Encuentre a la persona usando los mismos métodos de búsqueda de los <strong>Pasos 2 y 3</strong> (buscar por nombre o Ctrl+F para número de teléfono), luego haga clic en su campo de <strong>Fecha de Cita</strong>",
+                step_b: "Encuentre a la persona usando Ctrl+F (Cmd+F en Mac) para buscar por los últimos 4 dígitos de su número de teléfono, luego haga clic en su campo de <strong>Fecha de Cita</strong>",
                 step_b_caption: "Haga clic en la Fecha de Cita para abrir el selector de calendario",
                 step_c_label: "Paso C:",
                 step_c: "Seleccione <strong>la fecha de hoy</strong> del selector de calendario",
@@ -915,7 +904,7 @@ flowchart TD
                 end_title: "Rutina de Fin de Distribución",
                 end_desc: "Al final de cada día de distribución:",
                 end_step1: "Revise que todos los beneficiarios registrados hayan tenido sus solicitudes procesadas",
-                end_step2: "Verifique que todos los artículos \"Abiertos\" del día hayan sido marcados como \"Entregado\" o \"Vencido\"",
+                end_step2: "Verifique que los artículos de distribución de hoy hayan sido marcados como \"Entregado\" o \"Vencido\" donde corresponda. Los artículos que siguen \"Abiertos\" porque no estaban en inventario se quedan abiertos — eso es esperado.",
                 end_step3: "Marque las ausencias como \"Perdido\" para seguimiento",
                 end_missed_label: "Para beneficiarios que no llegaron → Marcar como Perdido:",
                 end_missed_caption: "❌ Marque a los beneficiarios que no aparecieron como \"Perdido\" para que puedan ser contactados",
@@ -926,8 +915,8 @@ flowchart TD
                 ref_timeout: "Vencido",
                 ref_timeout_desc: "El beneficiario ya no necesita el artículo",
                 ref_open: "Abierto",
-                ref_open_desc: "En espera - artículos de distribución actual",
-                footer_main: "Guía de Registro BAM • Última Actualización: Enero 2026",
+                ref_open_desc: "El beneficiario quiere el artículo pero aún no está disponible — queda en la fila",
+                footer_main: "Guía de Registro BAM • Última Actualización: Febrero 2026",
                 footer_mobile: "Toque los encabezados de sección para expandir/contraer en móvil"
             }
         };
